@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "contactsmanagement.client:build:production"
+              "buildTarget": "contactsmanagement.client:build:production"
             },
             "development": {
-              "browserTarget": "contactsmanagement.client:build:development"
+              "buildTarget": "contactsmanagement.client:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "contactsmanagement.client:build"
+            "buildTarget": "contactsmanagement.client:build"
           }
         },
         "test": {
