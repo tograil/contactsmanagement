@@ -8,7 +8,7 @@ import { ContactsService } from 'src/app/services/contacts.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private contacts: Contact[] = [];
+  public contacts: Contact[] = [];
 
   constructor(private contactService: ContactsService) {
 

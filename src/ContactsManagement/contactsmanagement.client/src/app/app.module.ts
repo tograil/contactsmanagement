@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
     EditContactComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, NgbModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive,
+    BrowserModule, HttpClientModule, NgbModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive
   ],
   providers: [ provideRouter(routes) ],
   bootstrap: [AppComponent]
