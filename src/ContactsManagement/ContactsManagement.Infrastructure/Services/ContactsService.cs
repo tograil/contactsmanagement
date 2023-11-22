@@ -16,7 +16,28 @@ public class ContactsService : IContactsService
 
     public CreateContactStatus CreateContact(NewContact newContact)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var contact = new Contact
+            {
+                FirstName = newContact.FirstName,
+                LastName = newContact.LastName,
+                Email = newContact.Email
+            };
+
+            if (_dbContext.Set<Contact>().Any(c => c.Email == contact.Email))
+                return CreateContactStatus.EmailAlreadyExists;
+
+            _dbContext.Set<Contact>().Add(contact);
+
+            return _dbContext.SaveChanges() > 0
+                ? CreateContactStatus.Success
+                : CreateContactStatus.ContactNotCreated;
+        }
+        catch (Exception)
+        {
+            return CreateContactStatus.ContactNotCreated;
+        }
     }
 
     public CreateContactStatus UpdateContact(Contact contact)

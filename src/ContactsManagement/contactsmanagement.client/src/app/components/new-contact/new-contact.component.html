@@ -1,1 +1,34 @@
-<p>new-contact works!</p>
+<div class="container">
+    <form [formGroup]="contactForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control"
+             [class.is-invalid]="contactForm.controls['firstName'].invalid && contactForm.controls['firstName'].touched"
+             id="firstName" formControlName="firstName">
+            @if(contactForm.controls["firstName"].invalid && contactForm.controls["firstName"].touched){
+                <div class="invalid-feedback">First Name required</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="email" class="form-control"
+            [class.is-invalid]="contactForm.controls['lastName'].invalid && contactForm.controls['lastName'].touched"
+            id="lastName" formControlName="lastName">
+            @if(contactForm.controls["lastName"].invalid && contactForm.controls["lastName"].touched){
+                <div class="invalid-feedback">Last Name required</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control"
+            [class.is-invalid]="contactForm.controls['email'].invalid && contactForm.controls['email'].touched"
+             id="exampleInputEmail1" formControlName="email">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            @if(contactForm.controls["email"].invalid && contactForm.controls["email"].touched){
+                <div class="invalid-feedback">Email required in correct format</div>
+            }
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Submit</button>
+    </form>
+</div>

@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './components/home/home.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routes } from './app.routes';
 import { RouterLink, RouterLinkActive, RouterOutlet, provideRouter } from '@angular/router';
@@ -20,7 +21,15 @@ import { CommonModule } from '@angular/common';
     EditContactComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, NgbModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive
+    BrowserModule,
+    HttpClientModule,
+    NgbModule,
+    CommonModule,
+    RouterOutlet,
+    RouterLink, 
+    RouterLinkActive,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ provideRouter(routes) ],
   bootstrap: [AppComponent]

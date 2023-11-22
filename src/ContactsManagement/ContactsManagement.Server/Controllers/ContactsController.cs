@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ContactsManagement.Domain.Models;
 using ContactsManagement.Server.Application.Contacts.Contacts;
+using ContactsManagement.Server.Application.Contacts.NewContact;
 using ContactsManagement.Server.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,9 @@ namespace ContactsManagement.Server.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<NewContactResponse> Post([FromBody] NewContactModel value)
         {
+            return await _mediator.Send(_mapper.Map<NewContactRequest>(value));
         }
 
         [HttpPut("{id}")]
