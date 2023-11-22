@@ -12,13 +12,14 @@ export interface NewContact {
     email: string
 }
 
-export enum CreateContactStatus {
+export enum ContactStatus {
     Success = 0,
     EmailAlreadyExists = 1,
     InvalidEmail = 2,
-    ContactNotCreated = 3
+    ContactNotCreated = 3,
+    ContactNotFound = 4
 }
 
-export interface NewContactResponse {
-    status: CreateContactStatus
+export interface ContactResponse {
+    status: ContactStatus
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Contact, NewContact, NewContactResponse } from '../dto/contact';
+import { Contact, NewContact, ContactResponse } from '../dto/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,15 @@ export class ContactsService {
     return this.http.get<Contact>(`/api/contacts/${id}`);
   }
 
-  public saveContact(contact: NewContact) : Observable<NewContactResponse> {
-    return this.http.post<NewContactResponse>('/api/contacts', contact);
+  public deleteContact(id: number) : Observable<ContactResponse> {
+    return this.http.delete<ContactResponse>(`/api/contacts/${id}`);
   }
 
-  public updateContact(id: number, contact: Contact) : Observable<NewContactResponse> {
-    return this.http.put<NewContactResponse>(`/api/contacts/${id}`, contact);
+  public saveContact(contact: NewContact) : Observable<ContactResponse> {
+    return this.http.post<ContactResponse>('/api/contacts', contact);
+  }
+
+  public updateContact(id: number, contact: Contact) : Observable<ContactResponse> {
+    return this.http.put<ContactResponse>(`/api/contacts/${id}`, contact);
   }
 }

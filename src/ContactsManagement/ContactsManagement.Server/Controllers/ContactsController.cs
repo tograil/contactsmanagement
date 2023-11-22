@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using ContactsManagement.Domain.Models;
 using ContactsManagement.Server.Application.Contacts.Contact;
 using ContactsManagement.Server.Application.Contacts.Contacts;
+using ContactsManagement.Server.Application.Contacts.DeleteContact;
 using ContactsManagement.Server.Application.Contacts.EditContact;
 using ContactsManagement.Server.Application.Contacts.NewContact;
 using ContactsManagement.Server.Models;
@@ -54,8 +54,9 @@ namespace ContactsManagement.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<DeleteContactResponse> Delete(int id)
         {
+            return await _mediator.Send(new DeleteContactRequest { Id = id });
         }
     }
 }

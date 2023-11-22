@@ -61,7 +61,16 @@ public class ContactsService : IContactsService
 
     public ContactStatus DeleteContact(int contactId)
     {
-        throw new NotImplementedException();
+        var contact = _dbContext.Set<Contact>().FirstOrDefault(x => x.Id == contactId);
+
+        if (contact == null)
+            return ContactStatus.ContactNotFound;
+
+        _dbContext.Set<Contact>().Remove(contact);
+
+        return _dbContext.SaveChanges() > 0
+            ? ContactStatus.Success
+            : ContactStatus.ContactNotFound;
     }
 
     public Contact? GetContact(int contactId)
