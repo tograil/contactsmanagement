@@ -11,7 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routes } from './app.routes';
 import { RouterLink, RouterLinkActive, RouterOutlet, provideRouter } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { NgbdSortableHeader } from './directives/sorting.directive';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,11 @@ import { CommonModule } from '@angular/common';
     RouterLink, 
     RouterLinkActive,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbdSortableHeader,
+    DecimalPipe
   ],
-  providers: [ provideRouter(routes) ],
+  providers: [ provideRouter(routes), DecimalPipe ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

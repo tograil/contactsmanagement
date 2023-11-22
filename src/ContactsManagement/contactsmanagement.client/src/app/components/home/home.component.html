@@ -18,21 +18,30 @@
 		<div class="col-md-1">
 			<button type="button" class="btn btn-success" [routerLink]="'new'">New</button>
 		</div>
+		<div class="col-md-5">
+			<input
+				id="table-complete-search"
+				type="text"
+				class="form-control"
+				name="searchTerm"
+				[(ngModel)]="contactsSortService.searchTerm"
+			/>
+		</div>
 	</div>
 	<div class="row">
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">First Name</th>
-					<th scope="col">Last Name</th>
-					<th scope="col">Email</th>
+					<th scope="col" sortable="firstName" (sort)="onSort($event)">First Name</th>
+					<th scope="col" sortable="lastName" (sort)="onSort($event)">Last Name</th>
+					<th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
 					<th scope="col">#</th>
 					<th scope="col">#</th>
 				</tr>
 			</thead>
 			<tbody>
-				@for (contact of contacts; track contact.id; let i = $index) {
+				@for (contact of contacts$ | async; track contact.id; let i = $index) {
 					<tr>
 						<td>
 							{{ contact.id }}
@@ -48,5 +57,16 @@
 				}
 			</tbody>
 		</table>
+
+		<div class="d-flex justify-content-between p-2">
+			<ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="contactsSortService.page" [pageSize]="contactsSortService.pageSize">
+			</ngb-pagination>
+	
+			<select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="contactsSortService.pageSize">
+				<option [ngValue]="2">2 items per page</option>
+				<option [ngValue]="4">4 items per page</option>
+				<option [ngValue]="6">6 items per page</option>
+			</select>
+		</div>
 	</div>
 </div>

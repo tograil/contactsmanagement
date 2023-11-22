@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactStatus, NewContact } from 'src/app/dto/contact';
+import { ContactsSortService } from 'src/app/services/contacts-sort.service';
 import { ContactsService } from 'src/app/services/contacts.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 
@@ -17,7 +18,10 @@ export class NewContactComponent {
     "email": new FormControl("", [ Validators.required, Validators.email])
   });
 
-  constructor(private router: Router, private contactsService: ContactsService, private feedbackService: FeedbackService) {
+  constructor(private router: Router,
+     private contactsService: ContactsService,
+     private feedbackService: FeedbackService,
+     public contactsSortService: ContactsSortService ) {
   }
 
   submit() {
@@ -29,6 +33,7 @@ export class NewContactComponent {
           alert('Email already exists');
         }
         else if (newContactResponse.status == ContactStatus.Success) {
+          this.contactsSortService.reload();
           this.feedbackService.showFeedback("Insert");
           this.router.navigate(["/"]);
         }

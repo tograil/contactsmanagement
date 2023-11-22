@@ -4,8 +4,8 @@
 </div>
 <div class="modal-body">
     <p>Can you leave feedback about {{ name }}?</p>
-    <textarea></textarea>
+    <input type="text" [(ngModel)]="feedback" >
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Save')">Close</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(feedback)">Close</button>
 </div>

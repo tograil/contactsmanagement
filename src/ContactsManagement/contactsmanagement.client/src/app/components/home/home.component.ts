@@ -1,6 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { NgbdSortableHeader, SortEvent } from 'src/app/directives/sorting.directive';
 import { Contact, ContactStatus } from 'src/app/dto/contact';
+import { ContactsSortService } from 'src/app/services/contacts-sort.service';
 import { ContactsService } from 'src/app/services/contacts.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 
@@ -10,11 +13,18 @@ import { FeedbackService } from 'src/app/services/feedback.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public contacts: Contact[] = [];
   closeResult = '';
+  contacts$: Observable<Contact[]>;
+	total$: Observable<number>;
 
-  constructor(private contactService: ContactsService, private modalService: NgbModal, private feedbackService: FeedbackService) {
-    
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> = new QueryList<NgbdSortableHeader>();
+
+  constructor(private contactService: ContactsService,
+     private modalService: NgbModal,
+     private feedbackService: FeedbackService,
+     public contactsSortService: ContactsSortService) {
+      this.contacts$ = contactsSortService.contacts$;
+		  this.total$ = contactsSortService.total$;
   }
 
   confirmDelete(id: number, content: TemplateRef<any>) {
@@ -35,11 +45,19 @@ export class HomeComponent implements OnInit {
   }
 
   loadContacts() {
-    this.contactService.getContacts()
-      .subscribe(cont => {
-        this.contacts = cont;
-      });
+    this.contactsSortService.reload();
   }
+
+  onSort({ column, direction }: SortEvent) {
+    this.headers.forEach((header) => {
+			if (header.sortable !== column) {
+				header.direction = '';
+			}
+		});
+
+		this.contactsSortService.sortColumn = column;
+		this.contactsSortService.sortDirection = direction;
+	}
 
   ngOnInit(): void {
     this.loadContacts();

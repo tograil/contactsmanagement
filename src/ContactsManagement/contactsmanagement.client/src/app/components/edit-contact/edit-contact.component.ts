@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contact, ContactStatus } from 'src/app/dto/contact';
+import { ContactsSortService } from 'src/app/services/contacts-sort.service';
 import { ContactsService } from 'src/app/services/contacts.service';
 import { FeedbackService } from 'src/app/services/feedback.service';
 
@@ -21,7 +22,8 @@ export class EditContactComponent implements OnInit {
   constructor(private contactsService: ContactsService,
     private feedbackService: FeedbackService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    public contactsSortService: ContactsSortService) {
   }
 
   submit() {
@@ -33,6 +35,7 @@ export class EditContactComponent implements OnInit {
         alert('Email already exists');
       }
       else if (newContactResponse.status == ContactStatus.Success) {
+        this.contactsSortService.reload();
         this.feedbackService.showFeedback("Edit");
         this.router.navigate(["/"]);
       }
