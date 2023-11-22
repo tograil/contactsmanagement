@@ -14,7 +14,15 @@ export class ContactsService {
     return this.http.get<Contact[]>('/api/contacts');
   }
 
+  public getContact(id: number) : Observable<Contact> {
+    return this.http.get<Contact>(`/api/contacts/${id}`);
+  }
+
   public saveContact(contact: NewContact) : Observable<NewContactResponse> {
-    return this.http.post<NewContactResponse>('/api/contacts', contact)
+    return this.http.post<NewContactResponse>('/api/contacts', contact);
+  }
+
+  public updateContact(id: number, contact: Contact) : Observable<NewContactResponse> {
+    return this.http.put<NewContactResponse>(`/api/contacts/${id}`, contact);
   }
 }

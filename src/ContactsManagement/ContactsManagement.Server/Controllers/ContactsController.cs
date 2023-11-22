@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ContactsManagement.Domain.Models;
+using ContactsManagement.Server.Application.Contacts.Contact;
 using ContactsManagement.Server.Application.Contacts.Contacts;
+using ContactsManagement.Server.Application.Contacts.EditContact;
 using ContactsManagement.Server.Application.Contacts.NewContact;
 using ContactsManagement.Server.Models;
 using MediatR;
@@ -29,9 +31,9 @@ namespace ContactsManagement.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ContactResponse> Get(int id)
         {
-            return "value";
+            return await _mediator.Send(new ContactRequest { Id = id });
         }
 
         [HttpPost]
@@ -41,8 +43,14 @@ namespace ContactsManagement.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<EditContactResponse> Put(int id, [FromBody] ContactModel value)
         {
+            if (id != value.Id)
+            {
+                throw new ArgumentException("Id mismatch");
+            }
+
+            return await _mediator.Send(_mapper.Map<EditContactRequest>(value));
         }
 
         [HttpDelete("{id}")]

@@ -4,5 +4,5 @@ namespace ContactsManagement.Server.Application.Contacts.NewContact;
 
 public class NewContactResponse
 {
-    public CreateContactStatus Status { get; set; }
+    public ContactStatus Status { get; set; }
 }

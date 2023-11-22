@@ -14,7 +14,7 @@ public class ContactsService : IContactsService
         _dbContext = dbContext;
     }
 
-    public CreateContactStatus CreateContact(NewContact newContact)
+    public ContactStatus CreateContact(NewContact newContact)
     {
         try
         {
@@ -26,33 +26,48 @@ public class ContactsService : IContactsService
             };
 
             if (_dbContext.Set<Contact>().Any(c => c.Email == contact.Email))
-                return CreateContactStatus.EmailAlreadyExists;
+                return ContactStatus.EmailAlreadyExists;
 
             _dbContext.Set<Contact>().Add(contact);
 
             return _dbContext.SaveChanges() > 0
-                ? CreateContactStatus.Success
-                : CreateContactStatus.ContactNotCreated;
+                ? ContactStatus.Success
+                : ContactStatus.ContactNotCreated;
         }
         catch (Exception)
         {
-            return CreateContactStatus.ContactNotCreated;
+            return ContactStatus.ContactNotCreated;
         }
     }
 
-    public CreateContactStatus UpdateContact(Contact contact)
+    public ContactStatus UpdateContact(Contact contact)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (_dbContext.Set<Contact>().Any(c => c.Email == contact.Email && c.Id != contact.Id))
+                return ContactStatus.EmailAlreadyExists;
+
+            _dbContext.Set<Contact>().Update(contact);
+
+            return _dbContext.SaveChanges() > 0
+                ? ContactStatus.Success
+                : ContactStatus.ContactNotCreated;
+        }
+        catch (Exception)
+        {
+            return ContactStatus.ContactNotCreated;
+        }
     }
 
-    public CreateContactStatus DeleteContact(int contactId)
+    public ContactStatus DeleteContact(int contactId)
     {
         throw new NotImplementedException();
     }
 
     public Contact? GetContact(int contactId)
     {
-        throw new NotImplementedException();
+        return _dbContext.Set<Contact>()
+            .FirstOrDefault(x => x.Id == contactId);
     }
 
     public IEnumerable<Contact> GetContacts()
