@@ -6,6 +6,6 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'edit', component: EditContactComponent },
+    { path: 'edit/:id', component: EditContactComponent },
     { path: 'new', component: NewContactComponent }
 ];

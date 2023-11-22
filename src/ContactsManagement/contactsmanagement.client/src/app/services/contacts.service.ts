@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Contact } from '../dto/contact';
+import { Contact, NewContact, NewContactResponse } from '../dto/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +12,9 @@ export class ContactsService {
 
   public getContacts() : Observable<Contact[]> {
     return this.http.get<Contact[]>('/api/contacts');
+  }
+
+  public saveContact(contact: NewContact) : Observable<NewContactResponse> {
+    return this.http.post<NewContactResponse>('/api/contacts', contact)
   }
 }

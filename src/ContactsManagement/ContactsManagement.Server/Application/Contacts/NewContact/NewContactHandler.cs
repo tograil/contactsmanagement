@@ -23,6 +23,9 @@ public class NewContactHandler : IRequestHandler<NewContactRequest, NewContactRe
     {
         _validator.ValidateAndThrow(request);
 
-        throw new NotImplementedException();
+        return Task.FromResult(new NewContactResponse
+        {
+            Status = _contactsService.CreateContact(_mapper.Map<Domain.Models.NewContact>(request))
+        });
     }
 }
