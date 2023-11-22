@@ -1,6 +1,6 @@
 ﻿namespace ContactsManagement.Domain.Enums;
 
-public enum CreateContactStatus
+public enum ContactStatus
 {
     Success,
     EmailAlreadyExists,
