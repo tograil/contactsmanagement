@@ -5,5 +5,6 @@ public enum ContactStatus
     Success,
     EmailAlreadyExists,
     InvalidEmail,
-    ContactNotCreated
+    ContactNotCreated,
+    ContactNotFound
 }

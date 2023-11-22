@@ -1,3 +1,18 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Delete contact</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		Do you want delete this item?
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cancel click')">Cancel</button>
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Ok click')">Ok</button>
+	</div>
+</ng-template>
+
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-1">
@@ -28,7 +43,7 @@
 						<td>{{ contact.lastName }}</td>
 						<td>{{ contact.email }}</td>
 						<td><button type="button" class="btn btn-primary" [routerLink]="[ 'edit', contact.id ]">Edit</button></td>
-						<td><button type="button" class="btn btn-danger">Delete</button></td>
+						<td><button type="button" class="btn btn-danger" (click)="confirmDelete(contact.id, content)">Delete</button></td>
 					</tr>
 				}
 			</tbody>

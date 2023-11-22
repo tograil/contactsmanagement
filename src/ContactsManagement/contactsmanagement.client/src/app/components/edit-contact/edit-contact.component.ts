@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Contact, CreateContactStatus } from 'src/app/dto/contact';
+import { Contact, ContactStatus } from 'src/app/dto/contact';
 import { ContactsService } from 'src/app/services/contacts.service';
 
 @Component({
@@ -27,10 +27,10 @@ export class EditContactComponent implements OnInit {
 
     this.contactsService.updateContact(contact.id, contact)
     .subscribe(newContactResponse => {
-      if (newContactResponse.status == CreateContactStatus.EmailAlreadyExists) {
+      if (newContactResponse.status == ContactStatus.EmailAlreadyExists) {
         alert('Email already exists');
       }
-      else if (newContactResponse.status == CreateContactStatus.Success) {
+      else if (newContactResponse.status == ContactStatus.Success) {
         this.router.navigate(["/"]);
       }
     })
