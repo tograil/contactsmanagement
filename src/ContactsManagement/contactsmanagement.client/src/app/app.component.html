@@ -1,4 +1,18 @@
-﻿<div class="container">
+﻿<ng-template #feedback let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Delete contact</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		Do you want delete this item?
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cancel click')">Cancel</button>
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Ok click')">Ok</button>
+	</div>
+</ng-template>
+
+<div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>

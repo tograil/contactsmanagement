@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Contact, ContactStatus } from 'src/app/dto/contact';
 import { ContactsService } from 'src/app/services/contacts.service';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   public contacts: Contact[] = [];
   closeResult = '';
 
-  constructor(private contactService: ContactsService, private modalService: NgbModal) {
+  constructor(private contactService: ContactsService, private modalService: NgbModal, private feedbackService: FeedbackService) {
     
   }
 
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
 				this.contactService.deleteContact(id)
           .subscribe(response => {
             if (response.status == ContactStatus.Success) {
+              this.feedbackService.showFeedback("Delete");
               this.loadContacts();
             }
           })
