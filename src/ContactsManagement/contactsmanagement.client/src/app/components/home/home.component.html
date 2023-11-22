@@ -1,1 +1,24 @@
-<p>home works!</p>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">First Name</th>
+			<th scope="col">Last Name</th>
+			<th scope="col">Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (contact of contacts; track $index; let i = $index) {
+			<tr>
+				<td>
+                    {{ contact.id }}
+                </td>
+				<td>
+					{{ contact.firstName }}
+				</td>
+				<td>{{ contact.lastName }}</td>
+				<td>{{ contact.email }}</td>
+			</tr>
+		}
+	</tbody>
+</table>
