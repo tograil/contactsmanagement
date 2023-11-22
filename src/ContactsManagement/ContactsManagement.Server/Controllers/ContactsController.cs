@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using AutoMapper;
+using ContactsManagement.Domain.Models;
+using ContactsManagement.Server.Application.Contacts.Contacts;
+using ContactsManagement.Server.Models;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContactsManagement.Server.Controllers
 {
@@ -8,33 +11,38 @@ namespace ContactsManagement.Server.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        // GET: api/<ContactsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
+
+
+        public ContactsController(IMediator mediator, IMapper mapper)
         {
-            return new string[] { "value1", "value2" };
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
-        // GET api/<ContactsController>/5
+        [HttpGet]
+        public async Task<IEnumerable<ContactModel>> Get()
+        {
+            return _mapper.Map<IEnumerable<ContactModel>>(await _mediator.Send(new ContactListRequest()));
+        }
+
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<ContactsController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<ContactsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ContactsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

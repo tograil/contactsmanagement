@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ContactsManagement.Domain.Models;
+using ContactsManagement.Server.Application.Contacts.Contacts;
 using ContactsManagement.Server.Application.Contacts.NewContact;
 using ContactsManagement.Server.Models;
 
@@ -11,7 +12,7 @@ public class ContactsProfile : Profile
     {
         CreateMap<NewContactModel, NewContactRequest>();
         CreateMap<NewContactRequest, NewContact>();
-        CreateMap<ContactModel, Contact>()
-            .ReverseMap();
+        CreateMap<Contact, ContactListResponse>();
+        CreateMap<ContactListResponse, ContactModel>();
     }
 }

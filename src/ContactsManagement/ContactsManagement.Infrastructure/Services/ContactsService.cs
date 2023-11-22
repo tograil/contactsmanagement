@@ -18,4 +18,24 @@ public class ContactsService : IContactsService
     {
         throw new NotImplementedException();
     }
+
+    public CreateContactStatus UpdateContact(Contact contact)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CreateContactStatus DeleteContact(int contactId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Contact? GetContact(int contactId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Contact> GetContacts()
+    {
+        return _dbContext.Set<Contact>().ToList();
+    }
 }
